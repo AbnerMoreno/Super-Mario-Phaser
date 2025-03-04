@@ -6,6 +6,14 @@ const config = {
     height: 244,
     backgroundColor:'#049cd8',
     parent: 'game',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {y:300},
+            debug: false
+        }
+
+    },
     scene: {
         preload,
         create,
@@ -39,12 +47,34 @@ function create() {
         .setOrigin(0, 0  )
         .setScale(0.15)
 
-    this.add.tileSprite(0, config.height -32, config.width, 32, 'floorbicks')
-        .setOrigin(0, 0)
 
-    this.mario = this.add.sprite(50, 210, 'mario')
-        .setOrigin(0, 1)
+    this.floor = this.physics.add.staticGroup()
 
+    this.floor
+        .create(0, config.height -16, 'floorbicks')
+        .setOrigin(0,0.5)
+        .refreshBody();
+
+    this.floor
+        .create(150, config.height -16, 'floorbicks')
+        .setOrigin(0,0.5)
+        .refreshBody();
+    // this.add.tileSprite(0, config.height -32, config.width, 32, 'floorbicks')
+    //     .setOrigin(0, 0)
+
+    // this.mario = this.add.sprite(50, 210, 'mario')
+    //     .setOrigin(0, 1)
+
+    this.mario = this.physics.add.sprite(50, 100, 'mario')
+        .setOrigin(0,1)
+        .setGravityY(500)
+        .setCollideWorldBounds(true)
+
+    this.physics.world.setBounds(0, 0, 2000, config.height)
+    this.physics.add.collider(this.mario, this.floor)
+
+    this.cameras.main.setBounds(0, 0, 2000, config.height)
+    this.cameras.main.startFollow(this.mario)
 
     this.anims.create({
         key: 'mario-walk',
@@ -54,6 +84,12 @@ function create() {
         ),
         frameRate: 12,
         repeat: -1
+    })
+
+
+    this.anims.create({
+        key:'mario-jump',
+        frames: [{key: 'mario', frame: 5}]
     })
 
     this.keys = this.input.keyboard.createCursorKeys()
@@ -72,6 +108,12 @@ function update() {
     }else{
         this.mario.anims.stop()
         this.mario.setFrame(0)
+    }
+    
+    if(this.keys.up.isDown && this.mario.body.touching.down){
+        this.mario.setVelocityY(-300)
+        this.mario.anims.play('mario-jump', true)
+
     }
 
 }
