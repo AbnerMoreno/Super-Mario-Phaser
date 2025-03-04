@@ -59,11 +59,6 @@ function create() {
         .create(150, config.height -16, 'floorbicks')
         .setOrigin(0,0.5)
         .refreshBody();
-    // this.add.tileSprite(0, config.height -32, config.width, 32, 'floorbicks')
-    //     .setOrigin(0, 0)
-
-    // this.mario = this.add.sprite(50, 210, 'mario')
-    //     .setOrigin(0, 1)
 
     this.mario = this.physics.add.sprite(50, 100, 'mario')
         .setOrigin(0,1)
