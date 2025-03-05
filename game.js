@@ -58,7 +58,7 @@ function create() {
         .refreshBody();
 
     this.floor
-        .create(150, config.height -16, 'floorbicks')
+        .create(160, config.height -16, 'floorbicks')
         .setOrigin(0,0.5)
         .refreshBody();
 
@@ -97,6 +97,12 @@ function update() {
         this.mario.setVelocityY(-300)
         this.mario.anims.play('mario-jump', true)
 
+    }
+
+    if(this.mario.y >= config.height){
+        this.mario.isDead = true
+        this.mario.anims.play('mario-dead')
+        this.mario.setCollideWorldBounds(false)
     }
 
 }
