@@ -85,11 +85,11 @@ function update() {
     if(this.mario.isDead)return
 
     if(this.keys.left.isDown){
-        this.mario.anims.play('mario-walk', true)
+        this.mario.body.touching.down && this.mario.anims.play('mario-walk', true)
         this.mario.x -= 2 
         this.mario.flipX = true
     }else if (this.keys.right.isDown){
-        this.mario.anims.play('mario-walk', true)
+        this.mario.body.touching.down && this.mario.anims.play('mario-walk', true)
         this.mario.x += 2
          this.mario.flipX = false
     }else if(this.mario.body.touching.down){
