@@ -97,11 +97,12 @@ function update() {
         this.mario.setFrame(0)
     }
     
-    if(this.keys.up.isDown && this.mario.body.touching.down){
+    if (this.keys.up.isDown && this.mario.body.touching.down) {
         this.mario.setVelocityY(-300)
-        this.mario.anims.play('mario-jump', true)
+        this.mario.anims.play('mario-jump', true) 
 
-    }
+        // hay que revisar porqué la animacion del salto no se realiza
+      }
 
     if(this.mario.y >= config.height){
         this.mario.isDead = true
