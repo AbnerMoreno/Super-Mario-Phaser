@@ -92,7 +92,7 @@ function update() {
         this.mario.anims.play('mario-walk', true)
         this.mario.x += 2
          this.mario.flipX = false
-    }else{
+    }else if(this.mario.body.touching.down){
         this.mario.anims.stop()
         this.mario.setFrame(0)
     }
