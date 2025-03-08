@@ -101,7 +101,6 @@ function update() {
         this.mario.setVelocityY(-300)
         this.mario.anims.play('mario-jump', true) 
 
-        // hay que revisar porqué la animacion del salto no se realiza
       }
 
     if(this.mario.y >= config.height){
