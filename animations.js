@@ -1,3 +1,5 @@
+import { checkControls } from "./controls"
+
 export const createAnimations = (game) => {
 
     game.anims.create({
@@ -20,4 +22,6 @@ export const createAnimations = (game) => {
         key:'mario-dead',
         frames: [{key: 'mario', frame: 4}]
     })
+
+    // checkControls(game, key)
 }
