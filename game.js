@@ -1,9 +1,10 @@
 /* global Phaser */
 
 import { createAnimations } from "./animations.js"
-import { checkControls } from "./controls.js"
+// import { checkControls } from "./controls.js"
 
 const config = {
+    autoFocus: false,
     type: Phaser.AUTO,
     width: 256,
     height: 244,
@@ -83,32 +84,35 @@ function create() {
 
 function update() {
 
-    if(this.mario.isDead)return
-    checkControls();
-
-    // if(this.keys.left.isDown){
-    //     this.mario.body.touching.down && this.mario.anims.play('mario-walk', true)
-    //     this.mario.x -= 2 
-    //     this.mario.flipX = true
-    // }else if (this.keys.right.isDown){
-    //     this.mario.body.touching.down && this.mario.anims.play('mario-walk', true);
-    //     this.mario.x += 2
-    //      this.mario.flipX = false
-    // }else if(this.mario.body.touching.down){
-    //     this.mario.anims.stop()
-    //     this.mario.setFrame(0)
-    // }
+    const {keys,mario} = this
     
-    // if (this.keys.up.isDown && this.mario.body.touching.down) {
-    //     this.mario.setVelocityY(-300)
-    //     this.mario.anims.play('mario-jump', true) 
+    const isMarioTouchingFloor = mario.body.touching.down
 
-    //   }
+    if(this.mario.isDead)return
 
-    if(this.mario.y >= config.height){
-        this.mario.isDead = true
-        this.mario.anims.play('mario-dead')
-        this.mario.setCollideWorldBounds(false)
+    if(keys.left.isDown){
+        isMarioTouchingFloor && this.mario.anims.play('mario-walk', true)
+        mario.x -= 2 
+        mario.flipX = true
+    }else if (keys.right.isDown){
+        isMarioTouchingFloor && mario.anims.play('mario-walk', true);
+        mario.x += 2
+        mario.flipX = false
+    }else if(isMarioTouchingFloor){
+        mario.anims.stop()
+        mario.setFrame(0)
+    }
+    
+    if (keys.up.isDown && isMarioTouchingFloor) {
+        mario.setVelocityY(-300)
+        mario.anims.play('mario-jump', true) 
+
+      }
+
+    if(mario.y >= config.height){
+        mario.isDead = true
+        mario.anims.play('mario-dead')
+        mario.setCollideWorldBounds(false)
         let gameoverSound = this.sound.add('gameover', {volume: 0.5});gameoverSound.play();
 
         this.time.delayedCall(1999, () =>{
