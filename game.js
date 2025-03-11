@@ -1,6 +1,7 @@
 /* global Phaser */
 
 import { createAnimations } from "./animations.js"
+import { checkControls } from "./controls.js"
 // import { checkControls } from "./controls.js"
 
 const config = {
@@ -84,47 +85,26 @@ function create() {
 
 function update() {
 
-    const {keys,mario} = this
-    
-    const isMarioTouchingFloor = mario.body.touching.down
+    checkControls(this)
 
-    if(this.mario.isDead)return
-
-    if(keys.left.isDown){
-        isMarioTouchingFloor && this.mario.anims.play('mario-walk', true)
-        mario.x -= 2 
-        mario.flipX = true
-    }else if (keys.right.isDown){
-        isMarioTouchingFloor && mario.anims.play('mario-walk', true);
-        mario.x += 2
-        mario.flipX = false
-    }else if(isMarioTouchingFloor){
-        mario.anims.stop()
-        mario.setFrame(0)
-    }
-    
-    if (keys.up.isDown && isMarioTouchingFloor) {
-        mario.setVelocityY(-300)
-        mario.anims.play('mario-jump', true) 
-
-      }
+    const{mario,sound, scene, time } = this
 
     if(mario.y >= config.height){
         mario.isDead = true
         mario.anims.play('mario-dead')
         mario.setCollideWorldBounds(false)
-        let gameoverSound = this.sound.add('gameover', {volume: 0.5});gameoverSound.play();
+        let gameoverSound = sound.add('gameover', {volume: 0.5});gameoverSound.play();
 
-        this.time.delayedCall(1999, () =>{
+        time.delayedCall(1999, () =>{
             gameoverSound.stop();
         })
 
         setTimeout(() => {
-            this.mario.setVelocityY(-350)
+            mario.setVelocityY(-350)
         }, 100);
 
         setTimeout(() => {
-            this.scene.restart()
+            scene.restart()
         }, 2000);
     }
 
