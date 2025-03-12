@@ -49,7 +49,7 @@ function preload() {
     this.load.spritesheet(
         'goomba',
         'assets/entities/overworld/goomba.png',
-        {frameWidth: 18, frameHeight: 16 }
+        {frameWidth: 16, frameHeight: 16 }
     )
 
     this.load.audio('gameover', 'assets/sound/music/gameover.mp3')
@@ -93,6 +93,8 @@ function create() {
     this.cameras.main.startFollow(this.mario)
 
     createAnimations(this)
+
+    this.enemy.anims.play('goomba-walk', true)
 
     this.keys = this.input.keyboard.createCursorKeys()
 
