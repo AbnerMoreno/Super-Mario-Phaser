@@ -87,6 +87,7 @@ function create() {
     this.physics.world.setBounds(0, 0, 2000, config.height)
     this.physics.add.collider(this.mario, this.floor)
     this.physics.add.collider(this.enemy, this.floor)
+    this.physics.add.collider(this.mario, this.enemy, onHitEnemy)
 
     this.cameras.main.setBounds(0, 0, 2000, config.height)
     this.cameras.main.startFollow(this.mario)
@@ -94,6 +95,14 @@ function create() {
     createAnimations(this)
 
     this.keys = this.input.keyboard.createCursorKeys()
+
+}
+
+function onHitEnemy(mario,enemy) {
+    if(mario.body.touching.down && enemy.body.touching.up){
+        enemy.destroy()
+        mario.setVelocityY(-290)
+    }
 }
 
 function update() {
