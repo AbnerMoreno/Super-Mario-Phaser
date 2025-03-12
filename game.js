@@ -46,6 +46,12 @@ function preload() {
         {frameWidth: 18, frameHeight: 16 }
     )
 
+    this.load.spritesheet(
+        'goomba',
+        'assets/entities/overworld/goomba.png',
+        {frameWidth: 18, frameHeight: 16 }
+    )
+
     this.load.audio('gameover', 'assets/sound/music/gameover.mp3')
 }
 
@@ -72,8 +78,15 @@ function create() {
         .setGravityY(500)
         .setCollideWorldBounds(true)
 
+    this.enemy = this.physics.add.sprite(120, config.height - 64, 'goomba')
+        .setOrigin(0,1)
+        .setGravityY(500)
+        .setVelocityX(-50)
+        .setCollideWorldBounds(true)
+
     this.physics.world.setBounds(0, 0, 2000, config.height)
     this.physics.add.collider(this.mario, this.floor)
+    this.physics.add.collider(this.enemy, this.floor)
 
     this.cameras.main.setBounds(0, 0, 2000, config.height)
     this.cameras.main.startFollow(this.mario)
@@ -87,13 +100,13 @@ function update() {
 
     checkControls(this)
 
-    const{mario,sound, scene, time } = this
+    const{mario,sound,scene, time } = this
 
     if(mario.y >= config.height){
         mario.isDead = true
         mario.anims.play('mario-dead')
         mario.setCollideWorldBounds(false)
-        let gameoverSound = sound.add('gameover', {volume: 0.5});gameoverSound.play();
+        let gameoverSound = sound.add('gameover', {volume: 0.1});gameoverSound.play();
 
         time.delayedCall(1999, () =>{
             gameoverSound.stop();
