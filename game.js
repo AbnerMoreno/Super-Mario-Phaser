@@ -53,6 +53,7 @@ function preload() {
     )
 
     this.load.audio('gameover', 'assets/sound/music/gameover.mp3')
+    this.load.audio('goomba-stomp', 'assets/sound/effects/goomba-stomp.wav')
 }
 
 function create() {
@@ -87,7 +88,7 @@ function create() {
     this.physics.world.setBounds(0, 0, 2000, config.height)
     this.physics.add.collider(this.mario, this.floor)
     this.physics.add.collider(this.enemy, this.floor)
-    this.physics.add.collider(this.mario, this.enemy, onHitEnemy)
+    this.physics.add.collider(this.mario, this.enemy, onHitEnemy, null, this)
 
     this.cameras.main.setBounds(0, 0, 2000, config.height)
     this.cameras.main.startFollow(this.mario)
@@ -105,6 +106,7 @@ function onHitEnemy(mario,enemy) {
         enemy.anims.play('goomba-hurt', true)
         enemy.setVelocityX(0)
         mario.setVelocityY(-290)
+        this.sound.play('goomba-stomp')
 
         setTimeout(() => {
             enemy.destroy()            
@@ -117,7 +119,7 @@ function update() {
 
     checkControls(this)
 
-    const{mario,sound,scene, time } = this
+    const{mario,sound,scene, time, } = this
 
     if(mario.y >= config.height){
         mario.isDead = true
