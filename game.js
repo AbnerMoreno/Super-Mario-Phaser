@@ -102,8 +102,14 @@ function create() {
 
 function onHitEnemy(mario,enemy) {
     if(mario.body.touching.down && enemy.body.touching.up){
-        enemy.destroy()
+        enemy.anims.play('goomba-hurt', true)
+        enemy.setVelocityX(0)
         mario.setVelocityY(-290)
+
+        setTimeout(() => {
+            enemy.destroy()            
+        }, 500);
+
     }
 }
 
