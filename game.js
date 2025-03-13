@@ -120,17 +120,18 @@ function update() {
 
     checkControls(this)
 
-    const{mario,sound,scene, time, } = this
+    const{mario,scene, time, } = this
 
     if(mario.y >= config.height){
         mario.isDead = true
         mario.anims.play('mario-dead')
         mario.setCollideWorldBounds(false)
-        let gameoverSound = sound.add('gameover', {volume: 0.1});gameoverSound.play();
 
-        time.delayedCall(1999, () =>{
-            gameoverSound.stop();
-        })
+        try {
+            playAudio('gameover', this, {volume: 1})
+        } catch (e) {
+
+        }
 
         setTimeout(() => {
             mario.setVelocityY(-350)
