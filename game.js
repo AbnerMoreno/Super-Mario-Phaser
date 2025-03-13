@@ -126,12 +126,8 @@ function update() {
         mario.isDead = true
         mario.anims.play('mario-dead')
         mario.setCollideWorldBounds(false)
+        playAudio('gameover', this, {volume: 0.1})
 
-        try {
-            playAudio('gameover', this, {volume: 1})
-        } catch (e) {
-
-        }
 
         setTimeout(() => {
             mario.setVelocityY(-350)
