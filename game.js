@@ -1,7 +1,7 @@
 /* global Phaser */
 
 import { createAnimations } from "./animations.js"
-import { initAudio } from "./audio.js"
+import { initAudio, playAudio } from "./audio.js"
 import { checkControls } from "./controls.js"
 // import { checkControls } from "./controls.js"
 
@@ -106,7 +106,8 @@ function onHitEnemy(mario,enemy) {
         enemy.anims.play('goomba-hurt', true)
         enemy.setVelocityX(0)
         mario.setVelocityY(-290)
-        this.sound.play('goomba-stomp')
+
+        playAudio('goomba-stomp', this)
 
         setTimeout(() => {
             enemy.destroy()            
