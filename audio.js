@@ -16,3 +16,11 @@ export const initAudio = ({load}) => {
         load.audio(key,path)
     })
 };
+
+export const playAudio = (id, {sound}, { volume = 1 } = {}) => {
+    try {
+        return sound.add(id, {volume}).play()
+    } catch (e) {
+        console.error(e)
+    }
+}
