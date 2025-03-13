@@ -133,6 +133,7 @@ function update() {
 function killMario(game) {
 
     const {mario, scene} = game
+    if(mario.isDead) return 
     mario.isDead = true
     mario.anims.play('mario-dead')
     mario.setCollideWorldBounds(false)
