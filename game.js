@@ -133,11 +133,17 @@ function update() {
 function killMario(game) {
 
     const {mario, scene} = game
+
     if(mario.isDead) return 
+
     mario.isDead = true
     mario.anims.play('mario-dead')
     mario.setCollideWorldBounds(false)
+
     playAudio('gameover', game, { volume: 0.1 })
+
+    mario.body.checkCollision.none = true
+    mario.setVelocityX(0)
 
 
     setTimeout(() => {
