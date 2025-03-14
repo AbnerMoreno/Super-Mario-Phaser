@@ -82,7 +82,7 @@ function create() {
         .setGravityY(500)
         .setCollideWorldBounds(true)
 
-    this.enemy = this.physics.add.sprite(120, config.height - 64, 'goomba')
+    this.enemy = this.physics.add.sprite(220, config.height - 30, 'goomba')
         .setOrigin(0, 1)
         .setGravityY(500)
         .setVelocityX(-50)
@@ -92,6 +92,7 @@ function create() {
     this.coins = this.physics.add.staticGroup()
     this.coins.create(150, 150, 'coin').anims.play('coin-spin', true)
     this.coins.create(300, 150, 'coin').anims.play('coin-spin', true)
+    this.physics.add.overlap(this.mario, this.coins, collectCoin, null, this)
 
     this.physics.world.setBounds(0, 0, 2000, config.height)
     this.physics.add.collider(this.mario, this.floor)
@@ -105,6 +106,11 @@ function create() {
 
     this.keys = this.input.keyboard.createCursorKeys()
 
+}
+
+function collectCoin(mario, coin) {
+    coin.destroy()
+    playAudio('coin-pickup', this, { volume: 0.05 })
 }
 
 function onHitEnemy(mario, enemy) {
