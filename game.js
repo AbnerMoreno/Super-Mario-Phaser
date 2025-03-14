@@ -118,10 +118,6 @@ function collectCoin(mario, coin) {
         color: '#fff'
     }).setOrigin(0.5, 1)
 
-    // setTimeout(() => {
-    //     scoreText.destroy()
-    // }, 500);
-
     this.tweens.add({
         targets: scoreText,
         y: scoreText.y - 20,
