@@ -63,7 +63,17 @@ function create() {
         .refreshBody();
 
     this.floor
-        .create(160, config.height - 16, 'floorbicks')
+        .create(128, config.height - 16, 'floorbicks')
+        .setOrigin(0, 0.5)
+        .refreshBody();
+
+    this.floor
+        .create(300, config.height - 16, 'floorbicks')
+        .setOrigin(0, 0.5)
+        .refreshBody();
+
+    this.floor
+        .create(428, config.height - 16, 'floorbicks')
         .setOrigin(0, 0.5)
         .refreshBody();
 
@@ -81,6 +91,7 @@ function create() {
 
     this.coins = this.physics.add.staticGroup()
     this.coins.create(150, 150, 'coin').anims.play('coin-spin', true)
+    this.coins.create(300, 150, 'coin').anims.play('coin-spin', true)
 
     this.physics.world.setBounds(0, 0, 2000, config.height)
     this.physics.add.collider(this.mario, this.floor)
@@ -108,14 +119,14 @@ function onHitEnemy(mario, enemy) {
             enemy.destroy()
         }, 500);
 
-    } else{
+    } else {
         killMario(this)
     }
 }
 
 function update() {
 
-    const { mario} = this
+    const { mario } = this
     checkControls(this)
 
 
@@ -127,9 +138,9 @@ function update() {
 
 function killMario(game) {
 
-    const {mario, scene} = game
+    const { mario, scene } = game
 
-    if(mario.isDead) return 
+    if (mario.isDead) return
 
     mario.isDead = true
     mario.anims.play('mario-dead')
