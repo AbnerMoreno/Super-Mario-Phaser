@@ -3,6 +3,7 @@
 import { createAnimations } from "./animations.js"
 import { initAudio, playAudio } from "./audio.js"
 import { checkControls } from "./controls.js"
+import { initspritesheet } from "./spritesheet.JS"
 // import { checkControls } from "./controls.js"
 
 const config = {
@@ -41,22 +42,14 @@ function preload() {
         'assets/scenery/overworld/floorbricks.png'
     )
 
-    this.load.spritesheet(
-        'mario',
-        'assets/entities/mario.png',
-        { frameWidth: 18, frameHeight: 16 }
-    )
-
-    this.load.spritesheet(
-        'goomba',
-        'assets/entities/overworld/goomba.png',
-        { frameWidth: 16, frameHeight: 16 }
-    )
-
+    initspritesheet(this)
     initAudio(this)
 }
 
 function create() {
+
+    createAnimations(this)
+
     this.add.image(0, 0, 'cloud1')
         .setOrigin(0, 0)
         .setScale(0.15)
@@ -85,6 +78,10 @@ function create() {
         .setVelocityX(-50)
         .setCollideWorldBounds(true)
 
+
+    this.coins = this.physics.add.staticGroup()
+    this.coins.create(150, 150, 'coin').anims.play('coin-spin', true)
+
     this.physics.world.setBounds(0, 0, 2000, config.height)
     this.physics.add.collider(this.mario, this.floor)
     this.physics.add.collider(this.enemy, this.floor)
@@ -92,8 +89,6 @@ function create() {
 
     this.cameras.main.setBounds(0, 0, 2000, config.height)
     this.cameras.main.startFollow(this.mario)
-
-    createAnimations(this)
 
     this.enemy.anims.play('goomba-walk', true)
 
