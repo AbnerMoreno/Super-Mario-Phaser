@@ -112,11 +112,24 @@ function collectCoin(mario, coin) {
     coin.destroy()
     playAudio('coin-pickup', this, { volume: 0.05 })
 
-    this.add.text(coin.x, coin.y, '+100', {
+   const scoreText = this.add.text(coin.x, coin.y, '+100', {
         fontFamily: 'pixel',
         fontSize: '9px',
         color: '#fff'
     }).setOrigin(0.5, 1)
+
+    // setTimeout(() => {
+    //     scoreText.destroy()
+    // }, 500);
+
+    this.tweens.add({
+        targets: scoreText,
+        y: scoreText.y - 20,
+        alpha: 0,
+        duration: 500,
+        ease: 'Linear',
+        onComplete: () => scoreText.destroy()
+    })
 }
 
 function onHitEnemy(mario, enemy) {

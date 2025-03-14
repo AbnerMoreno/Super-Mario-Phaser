@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'pixel';
-    src: url('assets/fonts/SuperMario.ttf') format('truetype');
+    src: url('assets/fonts/SuperMario.ttf');
 }
 
 body{
