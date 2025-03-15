@@ -3,9 +3,7 @@
 import { createAnimations } from "./animations.js"
 import { initAudio, playAudio } from "./audio.js"
 import { checkControls } from "./controls.js"
-import { initspritesheet } from "./spritesheet.JS"
-// import { checkControls } from "./controls.js"
-
+import { initspritesheet } from "./spritesheet.js"
 const config = {
     autoFocus: false,
     type: Phaser.AUTO,
@@ -111,14 +109,18 @@ function create() {
 function collectCoin(mario, coin) {
     coin.destroy()
     playAudio('coin-pickup', this, { volume: 0.05 })
+    addToScore('+100', coin, this)
+}
 
-   const scoreText = this.add.text(coin.x, coin.y, '+100', {
+function addToScore(scoreToAdd, origin, game) {
+
+    const scoreText = game.add.text(origin.x, origin.y, scoreToAdd, {
         fontFamily: 'pixel',
         fontSize: '9px',
         color: '#fff'
     }).setOrigin(0.5, 1)
 
-    this.tweens.add({
+    game.tweens.add({
         targets: scoreText,
         y: scoreText.y - 20,
         alpha: 0,
@@ -135,6 +137,7 @@ function onHitEnemy(mario, enemy) {
         mario.setVelocityY(-290)
 
         playAudio('goomba-stomp', this)
+        addToScore('+200', enemy, this)
 
         setTimeout(() => {
             enemy.destroy()
