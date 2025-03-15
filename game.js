@@ -40,17 +40,59 @@ function preload() {
         'assets/scenery/overworld/floorbricks.png'
     )
 
+    // this.load.image(
+    //     'set',
+    //     'asse'
+    // )
+
     initspritesheet(this)
     initAudio(this)
 }
 
 function create() {
 
+    function createClouds(numClouds) {
+        let lastX = 0;
+        let lastY = 0;
+        const minDistanceX = 150; // Minimum horizontal distance between clouds
+        const minDistanceY = 30; // Minimum vertical distance between clouds
+
+        for (let i = 0; i < numClouds; i++) {
+            let x, y;
+            do {
+                x = Phaser.Math.Between(0, config.width);
+            } while (Math.abs(x - lastX) < minDistanceX);
+
+            do {
+                y = Phaser.Math.Between(0, config.height / 5);
+            } while (Math.abs(y - lastY) < minDistanceY);
+
+            const scale = Phaser.Math.FloatBetween(0.1, 0.3);
+            this.add.image(x, y, 'cloud1')
+                .setOrigin(0, 0.5)
+                .setScale(scale);
+
+            lastX = x;
+            lastY = y;
+        }
+    }
+
     createAnimations(this)
 
-    this.add.image(0, 0, 'cloud1')
-        .setOrigin(0, 0)
-        .setScale(0.15)
+    createClouds.call(this, 20);
+
+    // this.add.image(0, 0, 'cloud1')
+    //     .setOrigin(0, 0)
+    //     .setScale(0.15)
+
+    // this.add.image(80, 60, 'cloud1')
+    //     .setOrigin(0, 0)
+    //     .setScale(0.20)
+
+
+    // this.add.image(150, 0, 'cloud1')
+    //     .setOrigin(0,0)
+    //     .setScale(0.20)
 
 
     this.floor = this.physics.add.staticGroup()
