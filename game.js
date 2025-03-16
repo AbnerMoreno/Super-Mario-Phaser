@@ -150,11 +150,13 @@ function create() {
 }
 
 function collectItem(mario, item) {
-    if(item.texture.key === 'coin') {
+    const {texture: {key}} = item
+    if(key === 'coin') {
         item.destroy()
         playAudio('coin-pickup', this, { volume: 0.05 })
         addToScore('+100', item, this)
-    } else {
+    } else if(key === 'supermushroom') {
+        item.destroy()
         console.log('Unknown item', item)
     }
 }
