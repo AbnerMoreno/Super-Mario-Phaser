@@ -40,10 +40,10 @@ function preload() {
         'assets/scenery/overworld/floorbricks.png'
     )
 
-    // this.load.image(
-    //     'set',
-    //     'asse'
-    // )
+    this.load.image(
+        'supermushroom',
+        'assets/collectibles/super-mushroom.png'
+    )
 
     initspritesheet(this)
     initAudio(this)
@@ -129,10 +129,11 @@ function create() {
         .setCollideWorldBounds(true)
 
 
-    this.coins = this.physics.add.staticGroup()
-    this.coins.create(150, 150, 'coin').anims.play('coin-spin', true)
-    this.coins.create(300, 150, 'coin').anims.play('coin-spin', true)
-    this.physics.add.overlap(this.mario, this.coins, collectCoin, null, this)
+    this.collectibes = this.physics.add.staticGroup()
+    this.collectibes.create(150, 150, 'coin').anims.play('coin-spin', true)
+    this.collectibes.create(300, 150, 'coin').anims.play('coin-spin', true)
+    this.collectibes.create(360, config.height - 40, 'supermushroom').anims.play('supermushroom-idle', true)
+    this.physics.add.overlap(this.mario, this.collectibes, collectItem, null, this)
 
     this.physics.world.setBounds(0, 0, 2000, config.height)
     this.physics.add.collider(this.mario, this.floor)
@@ -148,10 +149,14 @@ function create() {
 
 }
 
-function collectCoin(mario, coin) {
-    coin.destroy()
-    playAudio('coin-pickup', this, { volume: 0.05 })
-    addToScore('+100', coin, this)
+function collectItem(mario, item) {
+    if(item.texture.key === 'coin') {
+        item.destroy()
+        playAudio('coin-pickup', this, { volume: 0.05 })
+        addToScore('+100', item, this)
+    } else {
+        console.log('Unknown item', item)
+    }
 }
 
 function addToScore(scoreToAdd, origin, game) {
