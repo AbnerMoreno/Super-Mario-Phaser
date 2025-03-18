@@ -23,7 +23,8 @@ const INIT_SPRITESHEET = [
     {
         key: 'mario-grow',
         path: 'assets/entities/mario-grow.png',
-        frameWidth: 16,
+        frameWidth: 18,
+        frameHeight: 32
     }
 ]
 

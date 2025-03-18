@@ -10,6 +10,15 @@ export const createAnimations = (game) => {
         repeat: -1
     })
 
+    game.anims.create({
+        key: 'mario-idle',
+        frames: [{key: 'mario', frame: 0}]
+    })
+
+    game.anims.create({
+        key: 'mario-grown-idle',
+        frames: [{key: 'mario-grown', frame: 0}]
+    })
 
     game.anims.create({
         key:'mario-jump',
