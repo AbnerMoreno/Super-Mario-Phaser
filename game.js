@@ -157,6 +157,14 @@ function collectItem(mario, item) {
         addToScore('+100', item, this)
     } else if(key === 'supermushroom') {
         item.destroy()
+        mario.anims.play('mario-grow', true)
+        this.physics.world.pause()
+        this.anims.pauseAll()
+        setTimeout(() => {
+            mario.anims.play('mario-grow', true)
+            this.physics.world.resume()
+            this.anims.resumeAll()
+        }, 1000);
         console.log('Unknown item', item)
     }
 }
