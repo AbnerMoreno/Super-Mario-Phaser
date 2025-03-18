@@ -1,3 +1,18 @@
+const MARIO_ANIMATIONS = {
+    grown:{
+        idle: 'mario-grow-idle',
+        walk: 'mario-grow-walk',
+        jump: 'mario-grow-jump',
+        dead: 'mario-grow-dead'
+    },
+    normal:{
+        idle: 'mario-idle',
+        walk: 'mario-walk',
+        jump: 'mario-jump',
+        dead: 'mario-dead'
+    }
+}
+
 export function checkControls({mario, keys}) {
     
     const isMarioTouchingFloor = mario.body.touching.down
